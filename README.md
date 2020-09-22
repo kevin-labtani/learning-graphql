@@ -60,3 +60,12 @@ Creating Resolvers:
 - Resolvers must return the value type declared for the matching field
 - Resolvers can be async
 - Can retrieve data from any source
+
+### Arguments
+
+- Allows clients to pass variables along with Queries that can be used in your Resolvers to get data
+- Must be defined in your Schema
+- Can be added to any field
+- Either have to be Scalars or Input Types
+
+Input Type are just like Types, but used for Arguments

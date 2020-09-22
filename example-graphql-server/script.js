@@ -7,12 +7,30 @@ const typeDefs = gql`
     friends: [User]!
   }
 
+  type Shoe {
+    brand: String!
+    size: Int!
+  }
+
+  input ShoesInput {
+    brand: String
+    size: Int
+  }
+
   type Query {
     me: User!
+    shoes(input: ShoesInput): [Shoe]!
   }
 `;
+
 const resolvers = {
   Query: {
+    shoes(_, { input }) {
+      return [
+        { brand: "nike", size: 14 },
+        { brand: "adidas", size: 12 },
+      ].filter((shoes) => shoes.brand === input.brand);
+    },
     me() {
       return {
         email: "john@doe.com",
@@ -22,6 +40,7 @@ const resolvers = {
     },
   },
 };
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,

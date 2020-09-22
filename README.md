@@ -69,3 +69,8 @@ Creating Resolvers:
 - Either have to be Scalars or Input Types
 
 Input Type are just like Types, but used for Arguments
+
+Arguments will be passed to field Resolvers as the second argument
+The argument object will strictly follow the argument names and field types
+
+### Mutation Type

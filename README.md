@@ -74,3 +74,16 @@ Arguments will be passed to field Resolvers as the second argument
 The argument object will strictly follow the argument names and field types
 
 ### Mutation Type
+
+Definition:
+
+A Type on a Schema that defines operations clients can perform to mutate data (create, update, delete).
+
+Creating Mutations:
+
+- Define Mutation Type on Schema using SDL
+- Add fields for Mutation type
+- Add arguments for Mutation fields
+- Create Resolvers for Mutation fields
+
+Return values for Mutation fields are dependent on your clients and use case. If using a client side GraphQL cache, you should return the exact values Queries return

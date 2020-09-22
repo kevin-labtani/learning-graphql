@@ -35,3 +35,28 @@ Using SDL, the basic parts:
 - Scalars - primitive value type built into GraphQL
 - Query - type that defines how clients can access data
 - Mutation - type that defines how clients can modify or create data
+
+### Query Types
+
+Definition:
+
+A Type on a Schema that defines operations clients can perform to access data that resembles the shape of the other Types in the Schema.
+
+Creating Queries:
+
+- Create Query Type in the Schema using SDL
+- Add fields to the Query Type
+- Create Resolvers that for the fields
+
+### Resolvers
+
+Definition:
+
+Functions that are responsible for returning values for fields that exist on Types in a Schema. Resolvers execution is dependent on the incoming client Query.
+
+Creating Resolvers:
+
+- Resolver names must match the exact field name on your Schema’s Types
+- Resolvers must return the value type declared for the matching field
+- Resolvers can be async
+- Can retrieve data from any source

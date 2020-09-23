@@ -7,6 +7,7 @@ const typeDefs = gql`
   type User {
     id: ID!
     username: String!
+    pets: [Pet]!
   }
 
   type Pet {
@@ -15,7 +16,7 @@ const typeDefs = gql`
     name: String!
     type: String!
     img: String
-    buddies: [Pet]
+    owner: User!
   }
 
   input PetInput {

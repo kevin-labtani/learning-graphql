@@ -10,21 +10,31 @@ module.exports = {
       return ctx.models.Pet.findMany(input);
     },
     pet(_, { input }, ctx) {
+      console.log("Query => Pet");
       return ctx.models.Pet.findOne(input);
     },
   },
   Mutation: {
     newPet(_, { input }, ctx) {
-      const pet = ctx.models.Pet.create(input)
-      return pet
-    }
+      const pet = ctx.models.Pet.create(input);
+      return pet;
+    },
   },
-  // Pet: {
-  //   img(pet) {
-  //     return pet.type === "DOG"
-  //       ? "https://placedog.net/300/300"
-  //       : "http://placekitten.com/300/300";
-  //   },
-  // },
-  // User: {},
+  Pet: {
+    img(pet) {
+      return pet.type === "DOG"
+        ? "https://placedog.net/300/300"
+        : "http://placekitten.com/300/300";
+    },
+    owner(pet, _, ctx) {
+      console.log("Pet => Owner");
+      return ctx.models.User.findOne();
+    },
+  },
+  User: {
+    pets(user, _, ctx) {
+      console.log("User => Pet");
+      return ctx.models.Pet.findMany({ user: user.id });
+    },
+  },
 };

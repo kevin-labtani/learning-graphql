@@ -32,8 +32,6 @@ Using SDL, the basic parts:
 
 ### Query Types
 
-Definition:
-
 A Type on a Schema that defines operations clients can perform to access data that resembles the shape of the other Types in the Schema.
 
 Creating Queries:
@@ -43,8 +41,6 @@ Creating Queries:
 - Create Resolvers that for the fields
 
 ### Resolvers
-
-Definition:
 
 Functions that are responsible for returning values for fields that exist on Types in a Schema. Resolvers execution is dependent on the incoming client Query.
 
@@ -68,8 +64,6 @@ Arguments will be passed to field Resolvers as the second argument
 The argument object will strictly follow the argument names and field types
 
 ### Mutation Type
-
-Definition:
 
 A Type on a Schema that defines operations clients can perform to mutate data (create, update, delete).
 
@@ -120,8 +114,25 @@ Like interfaces, but without any defined common fields amongst the Types. Useful
 Your API is no longer a predefined list of operations that always return the same shapes. Instead, your API is a set of Nodes that know how to resolve themselves and have links to other Nodes. This allows a client to ask for Nodes and then follow those links to get related Nodes.
 
 Adding Relationships
+
 - Add a Type as a field value on another Type
 - Create resolvers for those fields on the Type
+
+example of query:
+
+```
+{
+  pet {
+    name
+    owner {
+      username
+      pets {
+        name
+      }
+    }
+  }
+}
+```
 
 ## Client Side
 

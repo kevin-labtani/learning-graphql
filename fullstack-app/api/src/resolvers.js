@@ -6,35 +6,36 @@
 module.exports = {
   Query: {
     // (initialValue, arguments, context)
-    pets(_, { input }, ctx) {
-      return ctx.models.Pet.findMany(input);
+    pets(_, { input }, { models }) {
+      return models.Pet.findMany(input || {});
     },
     pet(_, { input }, ctx) {
       console.log("Query => Pet");
       return ctx.models.Pet.findOne(input);
     },
+    user(_, __, { models }) {
+      return models.User.findOne();
+    },
   },
   Mutation: {
-    newPet(_, { input }, ctx) {
-      const pet = ctx.models.Pet.create(input);
+    addPet(_, { input }, { models, user }) {
+      const pet = models.Pet.create({ ...input, user: user.id });
       return pet;
     },
   },
   Pet: {
+    owner(pet, _, { models }) {
+      return models.User.findOne({ id: pet.user });
+    },
     img(pet) {
       return pet.type === "DOG"
         ? "https://placedog.net/300/300"
         : "http://placekitten.com/300/300";
     },
-    owner(pet, _, ctx) {
-      console.log("Pet => Owner");
-      return ctx.models.User.findOne();
-    },
   },
   User: {
-    pets(user, _, ctx) {
-      console.log("User => Pet");
-      return ctx.models.Pet.findMany({ user: user.id });
+    pets(user, _, { models }) {
+      return models.Pet.findMany({ user: user.id });
     },
   },
 };

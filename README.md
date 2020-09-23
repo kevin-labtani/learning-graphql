@@ -225,3 +225,15 @@ the answer will become:
         },
 ...
 ```
+
+### Apollo Client
+
+Apollo Client Encapsulates HTTP logic used to interact with a GraphQL API. Doubles as a client side state management alternative as well. If your GraphQL API is also an Apollo Server, provides some extra features. Offers a plug approach for extending its capabilities. It’s also framework independent.
+
+### Storing data from your API (by Apollo)
+
+- All nodes are stored flat by an unique ID
+- Unique ID is defaulted to .id or .\_id from nodes. You can
+  change this
+- Every node should send an .id or .\_id, or none at all. Or you
+  have to customize that logic

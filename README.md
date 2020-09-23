@@ -87,3 +87,11 @@ Creating Mutations:
 - Create Resolvers for Mutation fields
 
 Return values for Mutation fields are dependent on your clients and use case. If using a client side GraphQL cache, you should return the exact values Queries return
+
+### Schema Definition Language (Advanced)
+
+Enums:
+
+A set of discrete values that can be used in place of Scalars. An enum field must resolve to one of the values in the Enum. Great for limiting a field to only a few different options.
+By default enums resolve to strings with the same value
+

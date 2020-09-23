@@ -90,8 +90,33 @@ Return values for Mutation fields are dependent on your clients and use case. If
 
 ### Schema Definition Language (Advanced)
 
-Enums:
+#### Enums
 
 A set of discrete values that can be used in place of Scalars. An enum field must resolve to one of the values in the Enum. Great for limiting a field to only a few different options.
 By default enums resolve to strings with the same value
 
+#### Interfaces
+
+Abstract Types that can’t be used as field values but instead used as foundations for explicit Types. Great for when you have Types that share common fields, but differ slightly.
+
+example of query:
+
+```
+{
+  shoes {
+    __typename
+    brand
+    size
+    ... on Sneaker {
+      sport
+    }
+    ... on Boot {
+      hasGrip
+    }
+  }
+}
+```
+
+#### Unions
+
+Like interfaces, but without any defined common fields amongst the Types. Useful when you need to access more than one disjoint Type from one Query, like a search.

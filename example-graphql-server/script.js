@@ -1,9 +1,12 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
+  union Footwear = Sneaker | Boot
+
   enum ShoeType {
     NIKE
     ADIDAS
+    TIMBERLAND
   }
 
   type User {
@@ -12,9 +15,21 @@ const typeDefs = gql`
     friends: [User]!
   }
 
-  type Shoe {
+  interface Shoe {
     brand: ShoeType!
     size: Int!
+  }
+
+  type Sneaker implements Shoe {
+    brand: ShoeType!
+    size: Int!
+    sport: String
+  }
+
+  type Boot implements Shoe {
+    brand: ShoeType!
+    size: Int!
+    hasGrip: Boolean
   }
 
   input ShoesInput {
@@ -29,7 +44,7 @@ const typeDefs = gql`
 
   type Query {
     me: User!
-    shoes(input: ShoesInput): [Shoe]!
+    shoes(input: ShoesInput): [Footwear]!
   }
 
   type Mutation {
@@ -41,9 +56,9 @@ const resolvers = {
   Query: {
     shoes(_, { input }) {
       return [
-        { brand: "NIKE", size: 14 },
-        { brand: "ADIDAS", size: 12 },
-      ].filter((shoes) => shoes.brand === input.brand);
+        { brand: "NIKE", size: 14, sport: "basketball" },
+        { brand: "TIMBERLAND", size: 12, hasGrip: true },
+      ];
     },
     me() {
       return {
@@ -57,6 +72,20 @@ const resolvers = {
   Mutation: {
     createShoe(_, { input }) {
       return input;
+    },
+  },
+
+  Shoe: {
+    __resolveType(shoe) {
+      if (shoe.sport) return "Sneaker";
+      return "Boot";
+    },
+  },
+
+  Footwear: {
+    __resolveType(shoe) {
+      if (shoe.sport) return "Sneaker";
+      return "Boot";
     },
   },
 };

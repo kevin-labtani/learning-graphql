@@ -15,12 +15,6 @@ A spec that describes a declarative query language that your clients can use to 
 - Composition
 - Schema
 
-## Client Side
-
-- Query
-- Mutations
-- Fragments
-
 ### Schemas
 
 Creating a Schema:
@@ -120,3 +114,17 @@ example of query:
 #### Unions
 
 Like interfaces, but without any defined common fields amongst the Types. Useful when you need to access more than one disjoint Type from one Query, like a search.
+
+### Relationships
+
+Your API is no longer a predefined list of operations that always return the same shapes. Instead, your API is a set of Nodes that know how to resolve themselves and have links to other Nodes. This allows a client to ask for Nodes and then follow those links to get related Nodes.
+
+Adding Relationships
+- Add a Type as a field value on another Type
+- Create resolvers for those fields on the Type
+
+## Client Side
+
+- Query
+- Mutations
+- Fragments

@@ -87,7 +87,7 @@ By default enums resolve to strings with the same value
 
 Abstract Types that can’t be used as field values but instead used as foundations for explicit Types. Great for when you have Types that share common fields, but differ slightly.
 
-example of query:
+example query:
 
 ```
 {
@@ -118,7 +118,7 @@ Adding Relationships
 - Add a Type as a field value on another Type
 - Create resolvers for those fields on the Type
 
-example of query:
+example query:
 
 ```
 {
@@ -157,3 +157,71 @@ const server = new ApolloServer({
 - Query
 - Mutations
 - Fragments
+
+### Queries and Mutations from the client
+
+#### Operation names
+
+Unique names for your client side Query and Mutation operations. Used for client side caching, indexing inside of tools like GraphQL playground, etc. Like naming your functions in JS vs keeping them anonymous.
+
+example query using [the rick and morty api](https://rickandmortyapi.com/graphql/) :
+
+```
+query AllCharacters {
+  characters {
+    results {
+      name
+    }
+  }
+}
+```
+
+#### Variables with operations
+
+Operations can define arguments, very much like a function in most programming languages. Those variables can then be passed to query / mutation calls inside the operation as arguments. Variables are expected to be given at run time during operation execution from your client.
+
+example query:
+
+```
+query AllCharacters($page: Int) {
+  characters(page: $page) {
+    results {
+      name
+    }
+  }
+}
+
+```
+
+with query variables:
+
+```
+{"page": 2}
+```
+
+#### Aliasing with multiple queries and mutations
+
+```
+query AllCharacters($page: Int) {
+  characters(page: $page) {
+    results {
+      fullname: name
+    }
+  }
+}
+
+
+```
+
+the answer will become:
+
+```
+{
+  "data": {
+    "characters": {
+      "results": [
+        {
+          "fullname": "Rick Sanchez"
+        },
+...
+```

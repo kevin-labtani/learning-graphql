@@ -134,6 +134,24 @@ example of query:
 }
 ```
 
+### Basic Authentication
+
+You can lock the entire server:
+
+```js
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  async context({ req }) {
+    const jwt = req.headers.authorization;
+    // decode jwt, check user in db,...
+    throw new Error("not auth");
+    const user = models.User.findOne();
+    return { models, db, user };
+  },
+});
+```
+
 ## Client Side
 
 - Query

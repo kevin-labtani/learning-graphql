@@ -17,7 +17,7 @@ const GET_PETS = gql`
 `;
 
 const CREATE_PET = gql`
-  mutation CreatePet($newPet: NewPetInput!) {
+  mutation createPet($newPet: NewPetInput!) {
     addPet(input: $newPet) {
       id
       type
@@ -46,6 +46,16 @@ export default function Pets() {
     setModal(false);
     addPet({
       variables: { newPet: input },
+      optimisticResponse: {
+        __typename: "Mutation",
+        addPet: {
+          __typename: "Pet",
+          id: Math.floor(Math.random() * 1000) + "",
+          type: input.type,
+          img: "http://via.placeholder.com/300",
+          name: input.name,
+        },
+      },
     });
   };
 
@@ -53,7 +63,7 @@ export default function Pets() {
     return <NewPetModal onSubmit={onSubmit} onCancel={() => setModal(false)} />;
   }
 
-  if (loading || newPet.loading) {
+  if (loading) {
     return <Loader />;
   }
 

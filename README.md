@@ -249,3 +249,9 @@ To keep cache in sync:
 - Refetch matching queries after a mutation
 - Use update method on mutation
 - Watch Queries
+
+### Optimistic UI
+
+Your UI does not wait until after a mutation operation to update itself. Instead, it anticipates the response from the API and proceeds as if the API call was sync. The the API response replaces the generated one. This gives the illusion of your being really fast.
+
+Apollo provides a simple hook that allows you to write to the local cache after a mutation.

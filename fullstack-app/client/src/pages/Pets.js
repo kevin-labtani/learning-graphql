@@ -30,7 +30,17 @@ const CREATE_PET = gql`
 export default function Pets() {
   const [modal, setModal] = useState(false);
   const { loading, error, data } = useQuery(GET_PETS);
-  const [addPet, newPet] = useMutation(CREATE_PET);
+  const [addPet, newPet] = useMutation(CREATE_PET, {
+    update(cache, { data: { addPet } }) {
+      const data = cache.readQuery({ query: GET_PETS });
+      cache.writeQuery({
+        query: GET_PETS,
+        data: {
+          pets: [addPet, ...data.pets],
+        },
+      });
+    },
+  });
 
   const onSubmit = (input) => {
     setModal(false);

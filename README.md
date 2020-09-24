@@ -237,3 +237,15 @@ Apollo Client Encapsulates HTTP logic used to interact with a GraphQL API. Doubl
   change this
 - Every node should send an .id or .\_id, or none at all. Or you
   have to customize that logic
+
+### Keeping Cache in Sync
+
+Why is the cache out of sync?
+If you perform a mutation that updates or creates a single node, then apollo will update your cache automatically given the mutation and query has the same fields and id.
+If you perform a mutation that updates a node in a list or removes a node, you are responsible for updating any queries referencing that list or node. There are many ways to do this with apollo.
+
+To keep cache in sync:
+
+- Refetch matching queries after a mutation
+- Use update method on mutation
+- Watch Queries

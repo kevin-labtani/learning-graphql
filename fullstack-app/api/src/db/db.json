@@ -45,6 +45,13 @@
       "name": "Garfield",
       "type": "CAT",
       "user": "jBWMVGjm50l6LGwepDoty"
+    },
+    {
+      "id": "pk40TKFJ3XJ-UrUDtyiGz",
+      "createdAt": 1600953441062,
+      "name": "Benji",
+      "type": "DOG",
+      "user": "jBWMVGjm50l6LGwepDoty"
     }
   ]
 }

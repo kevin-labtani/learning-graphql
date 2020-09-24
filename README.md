@@ -255,3 +255,37 @@ To keep cache in sync:
 Your UI does not wait until after a mutation operation to update itself. Instead, it anticipates the response from the API and proceeds as if the API call was sync. The the API response replaces the generated one. This gives the illusion of your being really fast.
 
 Apollo provides a simple hook that allows you to write to the local cache after a mutation.
+
+### Client Side Schemas
+
+In addition to managing data from your API, apollo client can also local state originated from your front end app. Stuff you would normally store in something like Redux or Vuex. You can create a schema to define that state which allows you to query for that state the same way you query your API for data.
+
+The Schemas are created the exact same way as on the server. You just have to extend the Types from your server schema. You then use a directive to access local state from your queries and mutations.
+
+### Fragments
+
+You can reuse code (graphQL query) by defining a fragment and specifying which type your fragment is for.
+
+```
+const PETS_FIELDS = gql`
+  fragment PetsFields on Pet {
+    id
+    name
+    type
+    img
+    owner {
+      id
+      age @client
+    }
+  }
+`;
+
+const GET_PETS = gql`
+  query getPets {
+    pets {
+      ...PetsFields
+    }
+  }
+  ${PETS_FIELDS}
+`;
+```

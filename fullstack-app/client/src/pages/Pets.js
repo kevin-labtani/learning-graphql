@@ -5,26 +5,39 @@ import PetsList from "../components/PetsList";
 import NewPetModal from "../components/NewPetModal";
 import Loader from "../components/Loader";
 
+// TODO update iptimistic response with owner data
+const PETS_FIELDS = gql`
+  fragment PetsFields on Pet {
+    id
+    name
+    type
+    img
+    vaccinated  @client
+    owner {
+      id
+      age @client
+    }
+  }
+`;
+
 const GET_PETS = gql`
   query getPets {
     pets {
-      id
-      name
-      type
-      img
+      ...PetsFields
     }
   }
+  ${PETS_FIELDS}
 `;
 
 const CREATE_PET = gql`
   mutation createPet($newPet: NewPetInput!) {
     addPet(input: $newPet) {
-      id
-      type
-      img
-      name
+      pets {
+        ...PetsFields
+      }
     }
   }
+  ${PETS_FIELDS}
 `;
 
 export default function Pets() {
